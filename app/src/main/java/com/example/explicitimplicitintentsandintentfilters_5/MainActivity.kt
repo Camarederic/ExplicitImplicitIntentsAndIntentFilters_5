@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         binding.buttonExplicitIntent.setOnClickListener {
             startToSecondActivity()
         }
+
+        binding.buttonService.setOnClickListener {
+            startTestService()
+        }
     }
 
     private fun startToSecondActivity(){
@@ -24,5 +28,10 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("id", 10)
         intent.putExtra("message", "Hello from MainActivity")
         startActivity(intent)
+    }
+
+    private fun startTestService(){
+         startService(Intent(this, TestService::class.java))
+
     }
 }
