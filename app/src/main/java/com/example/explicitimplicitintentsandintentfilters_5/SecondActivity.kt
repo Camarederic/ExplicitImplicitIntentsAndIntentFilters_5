@@ -1,5 +1,6 @@
 package com.example.explicitimplicitintentsandintentfilters_5
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +19,21 @@ class SecondActivity : AppCompatActivity() {
 
         val message = intent.getStringExtra("message")
         binding.textViewSecondActivity.text = message
-
         Log.d("TAG", "SecondActivity : onCreate $id")
+
+        binding.buttonTakePhoto.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == 0){
+            val uri = data?.data
+            binding.imageViewPhoto.setImageURI(uri)
+        }
+    }
+
 }
